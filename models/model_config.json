@@ -1,0 +1,29 @@
+{
+  "model_name": "svm",
+  "version": "1.0.0",
+  "features": [
+    "Skin darkening (Y/N)",
+    "Follicle No. (R)",
+    "Cycle(R/I)",
+    "Total_Follicle_Count",
+    "Symptom_Burden",
+    "Follicle No. (L)",
+    "Weight gain(Y/N)",
+    "Cycle length(days)",
+    "hair growth(Y/N)",
+    "Fast food (Y/N)",
+    "Age (yrs)",
+    "Weight (Kg)",
+    "Waist(inch)",
+    "Marraige Status (Yrs)",
+    "TSH (mIU/L)"
+  ],
+  "metrics": {
+    "Model": "svm",
+    "Accuracy": 0.926605504587156,
+    "Precision": 0.8888888888888888,
+    "Recall": 0.8888888888888888,
+    "F1-Score": 0.8888888888888888,
+    "ROC-AUC": 0.9360730593607305
+  }
+}

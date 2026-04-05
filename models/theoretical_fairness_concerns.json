@@ -1,0 +1,42 @@
+[
+  {
+    "Category": "Socioeconomic Access",
+    "Concern": "Ultrasound Dependency",
+    "Description": "Model relies on follicle count features requiring ultrasound access",
+    "Affected_Groups": "Rural communities, low-income women, island provinces",
+    "Impact": "Screening tool inaccessible to those who need it most",
+    "Severity": "High"
+  },
+  {
+    "Category": "Population Generalization",
+    "Concern": "Training Data Geographic Bias",
+    "Description": "Model trained on Indian population; Filipino women may have different PCOS presentations",
+    "Affected_Groups": "All Filipino women, particularly indigenous groups",
+    "Impact": "Reduced accuracy, potential misdiagnosis patterns",
+    "Severity": "High"
+  },
+  {
+    "Category": "Health Literacy",
+    "Concern": "Technical Language Barrier",
+    "Description": "Features use medical terminology; explanations require health literacy",
+    "Affected_Groups": "Low-education communities, non-English/Tagalog speakers",
+    "Impact": "Reduced trust, misunderstanding of results, poor follow-through",
+    "Severity": "Medium"
+  },
+  {
+    "Category": "Anthropometric Standards",
+    "Concern": "BMI Cutoff Appropriateness",
+    "Description": "Western BMI standards may not apply to Asian populations",
+    "Affected_Groups": "Filipino women (typically lower BMI at same body fat %)",
+    "Impact": "Misclassification of metabolic risk",
+    "Severity": "Medium"
+  },
+  {
+    "Category": "Age Bias",
+    "Concern": "Reproductive Age Focus",
+    "Description": "PCOS research focuses on reproductive-age women (18-40)",
+    "Affected_Groups": "Adolescents (<18), perimenopausal women (>40)",
+    "Impact": "Delayed diagnosis in younger/older groups",
+    "Severity": "Medium"
+  }
+]
