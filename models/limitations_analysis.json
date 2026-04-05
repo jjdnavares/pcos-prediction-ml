@@ -1,0 +1,85 @@
+{
+  "Data Limitations": [
+    {
+      "Issue": "Small Sample Size",
+      "Description": "Dataset contains only 691 total samples",
+      "Impact": "Limited statistical power; may not capture full PCOS phenotypic diversity",
+      "Severity": "High",
+      "Evidence": "Training: 582, Test: 109"
+    },
+    {
+      "Issue": "Geographic & Population Specificity",
+      "Description": "Data from 10 hospitals in Kerala, India only",
+      "Impact": "May not generalize to Philippine population (genetic, dietary, environmental differences)",
+      "Severity": "High",
+      "Evidence": "No Philippine-specific validation data available"
+    },
+    {
+      "Issue": "Original Class Imbalance",
+      "Description": "PCOS minority class in original data",
+      "Impact": "SMOTE synthetic oversampling may not reflect real PCOS variability",
+      "Severity": "Medium",
+      "Evidence": "Synthetic samples created via interpolation, not real patients"
+    },
+    {
+      "Issue": "Missing Temporal Information",
+      "Description": "No data on symptom duration, disease progression, or treatment history",
+      "Impact": "Cannot distinguish early-stage vs. established PCOS; no longitudinal tracking",
+      "Severity": "Medium",
+      "Evidence": "All measurements are cross-sectional snapshots"
+    },
+    {
+      "Issue": "Hormonal Measurement Timing",
+      "Description": "Hormone levels vary by time of day, menstrual cycle phase",
+      "Impact": "Single measurements may not represent typical levels",
+      "Severity": "High",
+      "Evidence": "No standardization for cycle day or time of blood draw"
+    }
+  ],
+  "Model Limitations": [
+    {
+      "Issue": "Linear Model Assumptions",
+      "Description": "Logistic Regression assumes linear feature-target relationships",
+      "Impact": "May miss complex non-linear interactions (e.g., hormone ratio thresholds)",
+      "Severity": "Medium",
+      "Evidence": "Ensemble models showed similar performance, suggesting linearity holds"
+    },
+    {
+      "Issue": "No Causal Inference",
+      "Description": "Model identifies associations, not causal relationships",
+      "Impact": "Cannot determine if features cause PCOS or are symptoms/correlates",
+      "Severity": "Low (for screening)",
+      "Evidence": "Observational data without interventions"
+    },
+    {
+      "Issue": "Feature Dependency",
+      "Description": "Some features are biologically correlated (e.g., BMI + weight)",
+      "Impact": "Multicollinearity may affect coefficient stability",
+      "Severity": "Low",
+      "Evidence": "Feature selection removed highly correlated pairs"
+    }
+  ],
+  "Deployment Limitations": [
+    {
+      "Issue": "Not a Diagnostic Tool",
+      "Description": "Model is a screening aid, NOT a replacement for clinical diagnosis",
+      "Impact": "Requires physician confirmation; cannot be used for treatment decisions",
+      "Severity": "Critical",
+      "Evidence": "Rotterdam criteria require clinical judgment + ultrasound expertise"
+    },
+    {
+      "Issue": "Equipment Requirements",
+      "Description": "Full feature set requires ultrasound access (follicle counts)",
+      "Impact": "May not be feasible in rural community health centers",
+      "Severity": "High",
+      "Evidence": "Top SHAP features include follicle counts"
+    },
+    {
+      "Issue": "Training Requirement",
+      "Description": "Community health workers need training on feature collection + interpretation",
+      "Impact": "Deployment cost and time for capacity building",
+      "Severity": "Medium",
+      "Evidence": "Features require clinical knowledge (e.g., hirsutism scoring)"
+    }
+  ]
+}

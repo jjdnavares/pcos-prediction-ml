@@ -1,0 +1,17 @@
+Feature,Mean_|SHAP|
+Total_Follicle_Count,0.5197821956931095
+Symptom_Burden,0.23555384297040316
+Follicle No. (R),0.0
+Follicle No. (L),0.0
+Skin darkening (Y/N),0.0
+hair growth(Y/N),0.0
+Weight gain(Y/N),0.0
+Cycle(R/I),0.0
+Fast food (Y/N),0.0
+Follicle_Asymmetry,0.0
+Pimples(Y/N),0.0
+AMH(ng/mL),0.0
+Cycle length(days),0.0
+Weight (Kg),0.0
+BMI_Category_Obese,0.0
+Hair loss(Y/N),0.0

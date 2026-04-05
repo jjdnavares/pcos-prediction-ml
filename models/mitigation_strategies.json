@@ -1,0 +1,96 @@
+{
+  "Technical Mitigations": [
+    {
+      "Strategy": "Simplified Feature Set Model",
+      "Implementation": "Train secondary model using only: BMI, age, menstrual irregularity, hirsutism score (no ultrasound)",
+      "Target_Problem": "Ultrasound access barrier",
+      "Feasibility": "High",
+      "Expected_Impact": "Broader accessibility; 10-15% accuracy reduction acceptable for screening",
+      "Timeline": "1-2 months"
+    },
+    {
+      "Strategy": "Philippine Validation Study",
+      "Implementation": "Prospective data collection: 500+ Filipino women across regions; retrain or calibrate model",
+      "Target_Problem": "Population generalization",
+      "Feasibility": "Medium (requires funding, IRB, partnerships)",
+      "Expected_Impact": "Validate/improve accuracy for target population",
+      "Timeline": "12-18 months"
+    },
+    {
+      "Strategy": "Group-Specific Decision Thresholds",
+      "Implementation": "Optimize decision thresholds per age group to equalize recall",
+      "Target_Problem": "Age-based fairness gaps",
+      "Feasibility": "High",
+      "Expected_Impact": "Equalize sensitivity across groups; minor precision trade-off",
+      "Timeline": "1 week"
+    },
+    {
+      "Strategy": "Asian-Specific BMI Recalibration",
+      "Implementation": "Use WHO Asian BMI cutoffs (overweight: 23-27.5, obese: >27.5)",
+      "Target_Problem": "BMI standard mismatch",
+      "Feasibility": "High",
+      "Expected_Impact": "Better metabolic risk classification",
+      "Timeline": "1 day (re-feature engineering)"
+    }
+  ],
+  "Operational Mitigations": [
+    {
+      "Strategy": "Human-in-the-Loop Deployment",
+      "Implementation": "Model outputs risk scores + explanations; CHW makes final referral decision",
+      "Target_Problem": "Model not diagnostic-grade",
+      "Feasibility": "Required (non-negotiable)",
+      "Expected_Impact": "Clinical safety; accountability remains with trained professional",
+      "Timeline": "Design phase (before deployment)"
+    },
+    {
+      "Strategy": "Multilingual Interface",
+      "Implementation": "Translate feature names + SHAP explanations to Filipino, Cebuano, Ilocano",
+      "Target_Problem": "Language barriers",
+      "Feasibility": "High",
+      "Expected_Impact": "Improved understanding, trust, and follow-through",
+      "Timeline": "2-3 months (translation + testing)"
+    },
+    {
+      "Strategy": "Tiered Referral System",
+      "Implementation": "High risk (>0.8) \u2192 urgent specialist; Medium (0.5-0.8) \u2192 3-month follow-up; Low \u2192 education",
+      "Target_Problem": "Resource allocation",
+      "Feasibility": "High",
+      "Expected_Impact": "Efficient use of specialist time; reduced false positive burden",
+      "Timeline": "1 month (workflow design)"
+    },
+    {
+      "Strategy": "CHW Training Program",
+      "Implementation": "2-day workshop: PCOS basics, feature collection, model interpretation, referral protocols",
+      "Target_Problem": "Deployment capacity",
+      "Feasibility": "Medium (requires resources)",
+      "Expected_Impact": "Quality data collection; appropriate model use",
+      "Timeline": "3-6 months (curriculum + rollout)"
+    }
+  ],
+  "Monitoring Mitigations": [
+    {
+      "Strategy": "Quarterly Fairness Audits",
+      "Implementation": "Track predictions vs. diagnoses by age, region, SES proxy; report to ethics board",
+      "Target_Problem": "Ongoing bias detection",
+      "Feasibility": "High (if data infrastructure exists)",
+      "Expected_Impact": "Early detection of emergent biases",
+      "Timeline": "Continuous (post-deployment)"
+    },
+    {
+      "Strategy": "Feedback Loop for Model Updates",
+      "Implementation": "Collect confirmed diagnoses; retrain model annually with Philippine data",
+      "Target_Problem": "Model drift / population shift",
+      "Feasibility": "Medium (privacy, governance needed)",
+      "Expected_Impact": "Continuous improvement; adaptation to local patterns",
+      "Timeline": "Annual cycles"
+    },
+    {
+      "Strategy": "Patient Outcome Tracking",
+      "Implementation": "Follow up on referrals: confirmation rate, time to diagnosis, treatment initiation",
+      "Target_Problem": "Real-world effectiveness",
+      "Feasibility": "Medium",
+      "Expected_Impact": "Validate clinical utility; identify barriers",
+      "Timeline": "6-month intervals"
+    }
+  ]
+}
