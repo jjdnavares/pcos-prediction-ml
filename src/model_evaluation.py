@@ -88,7 +88,7 @@ def plot_confusion_matrix(
         plt.savefig(save_path, dpi=PLOT_DPI, bbox_inches='tight')
         logger.info(f"✓ Saved confusion matrix to {save_path}")
 
-    plt.show()
+    plt.close()
 
 def plot_roc_curve(
     model: object,
@@ -126,7 +126,7 @@ def plot_roc_curve(
         plt.savefig(save_path, dpi=PLOT_DPI, bbox_inches='tight')
         logger.info(f"✓ Saved ROC curve to {save_path}")
 
-    plt.show()
+    plt.close()
 
 def compare_models(
     models_dict: Dict[str, object],

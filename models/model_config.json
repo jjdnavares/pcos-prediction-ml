@@ -1,48 +1,29 @@
 {
-  "best_model_name": "Logistic Regression",
-  "best_model_params": {
-    "C": 0.01,
-    "class_weight": null,
-    "dual": false,
-    "fit_intercept": true,
-    "intercept_scaling": 1,
-    "l1_ratio": null,
-    "max_iter": 1000,
-    "multi_class": "deprecated",
-    "n_jobs": null,
-    "penalty": "l1",
-    "random_state": 42,
-    "solver": "liblinear",
-    "tol": 0.0001,
-    "verbose": 0,
-    "warm_start": false
-  },
-  "test_performance": {
-    "Model": "Logistic Regression",
-    "Recall": 0.8888888888888888,
-    "Precision": 0.6666666666666666,
-    "F1": 0.7619047619047619,
-    "Accuracy": 0.8165137614678899,
-    "AUC-ROC": 0.9297945205479452
-  },
-  "random_state": 42,
-  "selected_features": [
-    "Total_Follicle_Count",
-    "Follicle No. (R)",
-    "Follicle No. (L)",
-    "Symptom_Burden",
+  "model_name": "svm",
+  "version": "1.0.0",
+  "features": [
     "Skin darkening (Y/N)",
-    "hair growth(Y/N)",
-    "Weight gain(Y/N)",
+    "Follicle No. (R)",
     "Cycle(R/I)",
-    "Fast food (Y/N)",
-    "Follicle_Asymmetry",
-    "Pimples(Y/N)",
-    "AMH(ng/mL)",
+    "Total_Follicle_Count",
+    "Symptom_Burden",
+    "Follicle No. (L)",
+    "Weight gain(Y/N)",
     "Cycle length(days)",
+    "hair growth(Y/N)",
+    "Fast food (Y/N)",
+    "Age (yrs)",
     "Weight (Kg)",
-    "BMI_Category_Obese",
-    "Hair loss(Y/N)"
+    "Waist(inch)",
+    "Marraige Status (Yrs)",
+    "TSH (mIU/L)"
   ],
-  "n_features": 16
+  "metrics": {
+    "Model": "svm",
+    "Accuracy": 0.926605504587156,
+    "Precision": 0.8888888888888888,
+    "Recall": 0.8888888888888888,
+    "F1-Score": 0.8888888888888888,
+    "ROC-AUC": 0.9360730593607305
+  }
 }

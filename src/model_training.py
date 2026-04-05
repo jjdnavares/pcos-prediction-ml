@@ -145,7 +145,11 @@ def train_model_with_tuning(
     with mlflow.start_run(run_name=model_name, nested=True):
         mlflow.log_params(grid_search.best_params_)
         mlflow.log_metric(f"cv_best_{scoring}", grid_search.best_score_)
-        mlflow.sklearn.log_model(grid_search.best_estimator_, artifact_path=model_name)
+        mlflow.sklearn.log_model(
+            grid_search.best_estimator_,
+            artifact_path=model_name,
+            input_example=X_train.iloc[:1].astype(float),
+        )
 
     logger.info(f"✓ Best {scoring}: {grid_search.best_score_:.4f}")
     logger.info(f"✓ Best params: {grid_search.best_params_}")

@@ -31,18 +31,19 @@ def test_predict_valid_input():
     """Test prediction with valid input"""
     payload = {
         "age": 28,
-        "vit_d3": 22.0,
+        "weight": 65.0,
+        "waist": 34,
+        "marriage_status": 3,
+        "tsh": 2.5,
         "follicle_no_l": 13,
         "follicle_no_r": 14,
-        "avg_f_size_r": 18.0,
-        "endometrium": 7.5,
         "skin_darkening": 1,
         "hair_growth": 1,
         "weight_gain": 1,
         "hair_loss": 0,
         "fast_food": 1,
         "cycle_regularity": 4,
-        "cycle_length": 42
+        "cycle_length": 5
     }
 
     response = client.post("/api/v1/predict", json=payload)
@@ -59,18 +60,19 @@ def test_predict_invalid_age():
     """Test prediction with invalid age"""
     payload = {
         "age": 200,  # Invalid
-        "vit_d3": 22.0,
+        "weight": 65.0,
+        "waist": 34,
+        "marriage_status": 3,
+        "tsh": 2.5,
         "follicle_no_l": 13,
         "follicle_no_r": 14,
-        "avg_f_size_r": 18.0,
-        "endometrium": 7.5,
         "skin_darkening": 1,
         "hair_growth": 1,
         "weight_gain": 1,
         "hair_loss": 0,
         "fast_food": 1,
         "cycle_regularity": 4,
-        "cycle_length": 42
+        "cycle_length": 5
     }
 
     response = client.post("/api/v1/predict", json=payload)

@@ -44,8 +44,9 @@ The pipeline runs 9 steps end-to-end:
 5. StandardScaler normalization
 6. SMOTE oversampling for class balance
 7. Consensus feature selection (RFE + Mutual Info + Correlation)
-8. Train 6 models with GridSearchCV (Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM)
+8. Train 7 models with GridSearchCV (Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM, SVM)
 9. Evaluate and save best model (optimized for Recall)
+10. Log experiment to MLflow (parameters, metrics, artifacts)
 
 Output files:
 - `models/best_model.pkl` - Trained model
@@ -119,6 +120,7 @@ Best model: **Logistic Regression** (selected by highest Recall)
 | Random Forest | 92.7% | 91.2% | 86.1% | 88.6% | 94.3% |
 | LightGBM | 92.7% | 91.2% | 86.1% | 88.6% | 94.5% |
 | XGBoost | 91.7% | 88.6% | 86.1% | 87.3% | 94.2% |
+| SVM | 91.7% | 88.6% | 86.1% | 87.3% | 94.1% |
 | Decision Tree | 90.8% | 86.1% | 86.1% | 86.1% | 93.9% |
 
 ## Selected Features (15)
@@ -173,7 +175,7 @@ pcos-prediction-ml/
 │   ├── feature_engineering.py     # LH/FSH ratio, follicle count, symptom burden
 │   ├── preprocessing.py           # Train/test split, scaling, SMOTE
 │   ├── feature_selection.py       # RFE, Mutual Info, Correlation consensus
-│   ├── model_training.py          # GridSearchCV for 6 models
+│   ├── model_training.py          # GridSearchCV for 7 models + MLflow logging
 │   └── model_evaluation.py        # Metrics, confusion matrix, ROC curves
 ├── app/                           # FastAPI application
 │   ├── main.py                    # App entry point with CORS and routers
@@ -211,12 +213,13 @@ pcos-prediction-ml/
 | Component | Technology |
 |-----------|-----------|
 | Language | Python 3.10+ |
-| ML Framework | scikit-learn, XGBoost, LightGBM |
+| ML Framework | scikit-learn, XGBoost, LightGBM, SVM |
 | Class Balancing | imbalanced-learn (SMOTE) |
 | API | FastAPI + Uvicorn |
 | Validation | Pydantic |
 | Data | pandas, numpy, openpyxl |
 | Visualization | matplotlib, seaborn |
+| Experiment Tracking | MLflow |
 | Testing | pytest, httpx |
 | Containerization | Docker |
 
@@ -229,6 +232,24 @@ pytest tests/ -v
 # Run with coverage
 pytest tests/ --cov=src --cov=app --cov-report=html
 ```
+
+## Experiment Tracking (MLflow)
+
+Every training run is logged to MLflow automatically:
+
+```bash
+# After training, launch the MLflow dashboard
+mlflow ui --backend-store-uri mlruns
+
+# Open http://localhost:5000
+```
+
+What gets tracked per run:
+- Dataset parameters (rows, features, SMOTE ratio, test size)
+- Hyperparameters (best params from GridSearchCV per model)
+- Test metrics (accuracy, precision, recall, F1, AUC) for all 7 models
+- Best model artifact + confusion matrix + model config
+- Nested runs for each individual model experiment
 
 ## Docker Deployment
 
@@ -251,12 +272,19 @@ docker-compose up -d
 - **Target:** `PCOS (Y/N)` - Binary classification
 - **Class Distribution:** ~33% PCOS positive (imbalanced, addressed with SMOTE)
 
+## Demos
+
+See the [Demo Showcase](DEMO_SHOWCASE.md) for live GIF demonstrations of the Swagger UI, prediction calls, and GenAI tools used in development.
+
 ## Documentation
 
+- [Final Report](docs/reports/FINAL_REPORT.md)
 - [Data Dictionary](docs/DATA_DICTIONARY.md)
 - [Bias & Fairness Analysis](docs/BIAS_FAIRNESS_ANALYSIS.md)
-- [Technical Presentation](docs/presentations/TECHNICAL_PRESENTATION_DECK.md)
-- [Business Case](docs/presentations/BUSINESS_PRESENTATION_DECK.md)
+- [Technical Presentation](docs/markdown/TECHNICAL_PRESENTATION_DECK.md)
+- [Business Case](docs/markdown/BUSINESS_PRESENTATION_DECK.md)
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md)
+- [Versioning & Rollback Plan](docs/VERSIONING_ROLLBACK_PLAN.md)
 - [API Documentation](http://localhost:8000/docs) (interactive, when server is running)
 
 ## Use of Generative AI

@@ -5,8 +5,22 @@ Usage:
     python scripts/train_pipeline.py
 """
 
+import os
 import sys
+import warnings
+import multiprocessing
 from pathlib import Path
+
+# Handle loky/joblib warnings and multiprocessing on Windows
+os.environ['LOKY_MAX_CPU_COUNT'] = str(os.cpu_count() or 4)
+if sys.platform == 'win32':
+    os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning:joblib.externals.loky.backend.context'
+    import joblib.externals.loky.backend.context as _loky_ctx
+    _loky_ctx._count_physical_cores = lambda: (os.cpu_count() or 4, None)
+multiprocessing.set_start_method('spawn', force=True)
+
+# Suppress MLflow "Inferred schema contains integer column(s)" hint
+warnings.filterwarnings("ignore", message=".*Inferred schema contains integer column.*")
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -40,7 +54,7 @@ def main():
 
     # Set up MLflow experiment
     mlflow.set_experiment("pcos-prediction")
-    mlflow.set_tracking_uri(str(BASE_DIR / "mlruns"))
+    mlflow.set_tracking_uri((BASE_DIR / "mlruns").as_uri())
 
     with mlflow.start_run(run_name="training-pipeline"):
 
@@ -166,7 +180,10 @@ def main():
             "best_f1": best_row['F1-Score'],
             "best_roc_auc": best_row['ROC-AUC'],
         })
-        mlflow.sklearn.log_model(best_model, artifact_path="best_model")
+        mlflow.sklearn.log_model(
+            best_model, artifact_path="best_model",
+            input_example=X_test_final.iloc[:1].astype(float),
+        )
 
         # Save best model
         save_model(best_model, BEST_MODEL_FILE)

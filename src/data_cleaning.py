@@ -104,7 +104,7 @@ def handle_missing_values(df: pd.DataFrame, strategy: str = 'median') -> pd.Data
             else:  # mode
                 fill_value = df[col].mode()[0]
 
-            df[col].fillna(fill_value, inplace=True)
+            df[col] = df[col].fillna(fill_value)
 
     missing_after = df[numeric_cols].isnull().sum().sum()
 

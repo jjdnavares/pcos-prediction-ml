@@ -21,21 +21,22 @@ class PatientInput(BaseModel):
     """
     Patient data for PCOS prediction.
 
-    Fields match the 15 consensus-selected features used by the trained model.
+    Fields match the 15 features (13 raw + 2 engineered) used by the trained SVM model.
     Value ranges are based on clinical norms + dataset statistics.
     """
 
     # Demographics
     age: float = Field(..., ge=10, le=60, description="Patient age in years")
+    weight: float = Field(..., ge=20, le=200, description="Weight in kilograms")
+    waist: float = Field(..., ge=15, le=60, description="Waist circumference (inches)")
+    marriage_status: float = Field(..., ge=0, le=40, description="Marriage status (years)")
 
     # Metabolic markers
-    vit_d3: float = Field(..., ge=0, le=150, description="Vitamin D3 level (ng/mL)")
+    tsh: float = Field(..., ge=0, le=25, description="TSH level (mIU/L)")
 
     # Ovarian morphology
     follicle_no_l: int = Field(..., ge=0, le=30, description="Left ovary follicle count")
     follicle_no_r: int = Field(..., ge=0, le=30, description="Right ovary follicle count")
-    avg_f_size_r: float = Field(..., ge=0, le=30, description="Avg follicle size right ovary (mm)")
-    endometrium: float = Field(..., ge=0, le=20, description="Endometrium thickness (mm)")
 
     # Physical symptoms (0=No, 1=Yes)
     skin_darkening: int = Field(..., ge=0, le=1, description="Skin darkening (0=No, 1=Yes)")
@@ -46,24 +47,25 @@ class PatientInput(BaseModel):
 
     # Menstrual cycle
     cycle_regularity: int = Field(..., ge=2, le=5, description="Cycle regularity (2=Regular, 4=Irregular)")
-    cycle_length: float = Field(..., ge=0, le=90, description="Menstrual cycle length in days")
+    cycle_length: float = Field(..., ge=1, le=7, description="Cycle length category (1-7 scale, dataset encoding)")
 
     class Config:
         json_schema_extra = {
             "example": {
                 "age": 28,
-                "vit_d3": 22.0,
+                "weight": 65.0,
+                "waist": 34,
+                "marriage_status": 3,
+                "tsh": 2.5,
                 "follicle_no_l": 13,
                 "follicle_no_r": 14,
-                "avg_f_size_r": 18.0,
-                "endometrium": 7.5,
                 "skin_darkening": 1,
                 "hair_growth": 1,
                 "weight_gain": 1,
                 "hair_loss": 0,
                 "fast_food": 1,
-                "cycle_regularity": 4,
-                "cycle_length": 42
+                "cycle_regularity": 5,
+                "cycle_length": 5
             }
         }
 

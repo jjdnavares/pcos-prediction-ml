@@ -23,6 +23,11 @@ def engineer_features(patient_data: Dict) -> Dict:
     # Make a copy to avoid modifying original
     features = patient_data.copy()
 
+    # Fix undocumented cycle value (must match training pipeline)
+    # During training, Cycle(R/I) value 4 was mapped to 5 (irregular)
+    if features.get('cycle_regularity') == 4:
+        features['cycle_regularity'] = 5
+
     # Total Follicle Count
     features['Total_Follicle_Count'] = features['follicle_no_l'] + features['follicle_no_r']
 
@@ -55,11 +60,12 @@ def prepare_model_input(patient_data: Dict, feature_names: list) -> np.ndarray:
 
     field_mapping = {
         'age': 'Age (yrs)',
-        'vit_d3': 'Vit D3 (ng/mL)',
+        'weight': 'Weight (Kg)',
+        'waist': 'Waist(inch)',
+        'marriage_status': 'Marraige Status (Yrs)',
+        'tsh': 'TSH (mIU/L)',
         'follicle_no_l': 'Follicle No. (L)',
         'follicle_no_r': 'Follicle No. (R)',
-        'avg_f_size_r': 'Avg. F size (R) (mm)',
-        'endometrium': 'Endometrium (mm)',
         'skin_darkening': 'Skin darkening (Y/N)',
         'hair_growth': 'hair growth(Y/N)',
         'weight_gain': 'Weight gain(Y/N)',

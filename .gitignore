@@ -44,5 +44,10 @@ Thumbs.db
 *.log
 logs/
 
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
 # MLflow
 mlruns/
