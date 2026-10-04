@@ -36,7 +36,12 @@ from src.model_evaluation import compare_models, plot_confusion_matrix
 import logging
 import joblib
 import json
+import os
 import mlflow
+
+# MLflow >= 3.x treats the ./mlruns file store as maintenance-mode and refuses it by default.
+# Opt in explicitly to keep the existing file-based tracking layout.
+os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
 
 # Configure logging
 logging.basicConfig(
@@ -53,8 +58,9 @@ def main():
     logger.info("="*80)
 
     # Set up MLflow experiment
-    mlflow.set_experiment("pcos-prediction")
+    # Tracking URI must be set before the experiment (MLflow 3.x defaults to a different store)
     mlflow.set_tracking_uri((BASE_DIR / "mlruns").as_uri())
+    mlflow.set_experiment("pcos-prediction")
 
     with mlflow.start_run(run_name="training-pipeline"):
 
